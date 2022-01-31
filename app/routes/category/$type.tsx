@@ -1,7 +1,20 @@
-import React from "react";
 import ProductsWrapper from "~/components/organism/ProductsWrapper";
-import { useLoaderData } from "remix";
+import { LinksFunction, useLoaderData } from "remix";
+import productStylesURL from "../../styles/product.css";
+import commonStylesURL from "../../styles/common.css";
 
+export let links: LinksFunction = () => {
+  return [
+    {
+      rel: "stylesheet",
+      href: productStylesURL,
+    },
+    {
+      rel: "stylesheet",
+      href: commonStylesURL,
+    },
+  ];
+};
 export async function loader({ params }: any) {
   const res = await fetch(
     `https://fakestoreapi.com/products/category/${params.type}`

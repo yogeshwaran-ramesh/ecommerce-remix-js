@@ -1,64 +1,57 @@
-import React from "react";
-import { Card, Col, Row, Typography } from "antd";
-import { HeartOutlined } from "@ant-design/icons";
-import { HeartIcon } from "./Icons";
 import { ProductType } from "../models";
-import { Link } from "react-router-dom";
-const { Paragraph, Text } = Typography;
+import { LinksFunction, redirect } from "remix";
+import stylesURL from "../styles/product.css";
+export let links: LinksFunction = () => {
+  return [
+    {
+      rel: "stylesheet",
+      href: stylesURL,
+    },
+  ];
+};
+import { useContext } from "react";
+import AppContext from "../store/AppContext";
 
 const ProductCard = (data: ProductType) => {
+  const value: any = useContext(AppContext);
+  console.log("State", value);
   const { image, title, price, id }: ProductType = data;
 
   return (
     <div
-      style={{
-        width: 300,
-        height: 450,
-        borderRadius: 15,
-        margin: 20,
-        padding: 20,
-        backgroundColor: "#EEEEEE",
+      className="product-card-wrapper"
+      onClick={() => {
+        console.log("hello");
+        redirect("/log");
       }}
+      key={id}
     >
-      <Link to={`/product/${id}`}>
-        <div
+      <div className="product-card">
+        <button
           style={{
-            backgroundColor: "white",
-            padding: 15,
-            borderRadius: 20,
-            position: "relative",
+            backgroundColor: "blanchedalmond",
+            padding: 5,
+            borderRadius: "50%",
+            position: "absolute",
+            top: 10,
+            right: 10,
+            zIndex: 1,
           }}
+          onClick={() => value.setLiked(data)}
         >
-          <button
-            style={{
-              backgroundColor: "blanchedalmond",
-              padding: 5,
-              borderRadius: "50%",
-              position: "absolute",
-              top: 10,
-              right: 10,
-              zIndex: 1,
-            }}
-          >
-            Like
-          </button>
-          <img
-            alt="example"
-            src={image}
-            style={{
-              width: "100%",
-              borderRadius: 10,
-              height: 280,
-            }}
-          />
-        </div>
-      </Link>
-      <div
-        style={{
-          display: "flex",
-          margin: "10px 0px",
-        }}
-      >
+          Like
+        </button>
+        <img
+          alt="example"
+          src={image}
+          style={{
+            width: "100%",
+            borderRadius: 10,
+            height: 280,
+          }}
+        />
+      </div>
+      <div className="flex">
         <div
           style={{
             display: "flex",

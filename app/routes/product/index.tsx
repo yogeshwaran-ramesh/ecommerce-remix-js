@@ -1,6 +1,4 @@
-import { Link, useLoaderData } from "remix";
-
-export default function Posts() {
+export default function Products() {
   return (
     <div>
       <h1>Products</h1>

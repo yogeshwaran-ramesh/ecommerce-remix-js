@@ -1,25 +1,32 @@
 import React from "react";
 import { Link, useLoaderData, LinksFunction } from "remix";
 import ProductsWrapper from "../components/organism/ProductsWrapper";
-import stylesUrl from "../styles/index.css";
+import productStylesURL from "../styles/product.css";
+import commonStylesURL from "../styles/common.css";
+import { api } from "~/services";
 
 export let links: LinksFunction = () => {
   return [
     {
       rel: "stylesheet",
-      href: stylesUrl,
+      href: productStylesURL,
+    },
+    {
+      rel: "stylesheet",
+      href: commonStylesURL,
     },
   ];
 };
 export async function loader() {
-  const [categoriesRes, productsRes] = await Promise.all([
-    fetch(`https://fakestoreapi.com/products/categories`),
-    fetch(`https://fakestoreapi.com/products`),
-  ]);
   const [categories, products] = await Promise.all([
-    categoriesRes.json(),
-    productsRes.json(),
+    api.getCategory(),
+    api.getProducts(),
   ]);
+  // const [categories, products] = await Promise.all([
+  //   categoriesRes.json(),
+  //   productsRes.json(),
+  // ]);
+  console.log("Caaaa", categories, products);
 
   return { categories, products };
 }
@@ -43,6 +50,7 @@ const Home = () => {
             style={{ textDecoration: "none", color: "black" }}
           >
             <div
+              key={data}
               style={{
                 textAlign: "center",
                 boxShadow: "5px 5px 24px 15px rgba(0, 0, 0, 0.04)",
@@ -51,6 +59,8 @@ const Home = () => {
                 backgroundColor: "#EEEEEE",
                 // color: "#EEEEEE",
                 borderRadius: 10,
+                width: 300,
+                maxWidth: 300,
               }}
             >
               <h1 style={{ fontVariantCaps: "all-petite-caps" }}>{data}</h1>

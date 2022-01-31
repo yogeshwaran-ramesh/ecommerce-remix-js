@@ -5,12 +5,10 @@ export async function loader({ params }: any) {
     `https://fakestoreapi.com/products/${params.productId}`
   );
   const data = await res.json();
-  console.log("got single", data);
   return { product: data };
 }
 const SingleProduct = () => {
   const { product } = useLoaderData();
-  console.log("got single load", product);
 
   return (
     <div
