@@ -14,14 +14,18 @@ const Navbar = () => {
         <nav aria-label="Main navigation" className="remix-app__header-nav">
           <ul>
             <li>
-              <div>
-                <span>{value.state.cart.length}</span>
+              <div style={{ position: "relative" }}>
+                <span style={{ position: "absolute", top: -7, right: -7 }}>
+                  {value.state.cart.length}
+                </span>
                 <Link to="/cart">Cart</Link>
               </div>
             </li>
             <li>
-              <div>
-                <span>{value.state.liked.length}</span>
+              <div style={{ position: "relative" }}>
+                <span style={{ position: "absolute", top: -7, right: -7 }}>
+                  {value.state.liked.length}
+                </span>
                 <Link to="/wishlist">Wishlist</Link>
               </div>
             </li>

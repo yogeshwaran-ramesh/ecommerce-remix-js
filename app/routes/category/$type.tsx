@@ -20,7 +20,6 @@ export async function loader({ params }: any) {
     `https://fakestoreapi.com/products/category/${params.type}`
   );
   const data = await res.json();
-  console.log("got cat", data);
   return { products: data, type: params.type };
 }
 const Category = () => {
