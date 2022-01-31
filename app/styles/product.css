@@ -1,0 +1,14 @@
+.product-card-wrapper {
+  width: 300px;
+  height: 450px;
+  border-radius: 15px;
+  margin: 20px;
+  padding: 20px;
+  background-color: #eeeeee;
+}
+.product-card {
+  background-color: white;
+  padding: 15px;
+  border-radius: 20px;
+  position: relative;
+}
