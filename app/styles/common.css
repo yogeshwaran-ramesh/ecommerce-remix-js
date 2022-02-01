@@ -9,3 +9,24 @@
   justify-content: center;
   flex-wrap: wrap;
 }
+.flex-center {
+  justify-content: center;
+  align-items: center;
+}
+.icon {
+  width: 25px;
+  height: 25px;
+}
+.badge {
+  width: 18px;
+  background-color: red;
+  border-radius: 50%;
+  height: 18px;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  z-index: 1;
+}
+.form-validation-error {
+  color: red;
+}

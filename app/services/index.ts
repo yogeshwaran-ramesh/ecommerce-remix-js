@@ -12,4 +12,13 @@ export const api = {
       resolve(category);
     });
   },
+  getSingleProduct(id: number) {
+    return new Promise((resolve) => {
+      console.log(
+        id,
+        products.find((data) => data.id === id)
+      );
+      resolve(products.find((data) => data.id === id));
+    });
+  },
 };

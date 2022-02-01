@@ -11,6 +11,8 @@ export let links: LinksFunction = () => {
 };
 import { useContext } from "react";
 import AppContext from "../store/AppContext";
+import { HeartFillIcon, HeartIcon } from "~/assests/icons";
+import { Link } from "react-router-dom";
 
 const ProductCard = (data: ProductType) => {
   const value: any = useContext(AppContext);
@@ -27,9 +29,9 @@ const ProductCard = (data: ProductType) => {
       key={id}
     >
       <div className="product-card">
-        <button
+        <div
+          className="icon"
           style={{
-            backgroundColor: "blanchedalmond",
             padding: 5,
             borderRadius: "50%",
             position: "absolute",
@@ -37,19 +39,25 @@ const ProductCard = (data: ProductType) => {
             right: 10,
             zIndex: 1,
           }}
-          onClick={() => value.setLiked(data)}
+          onClick={() => value.setLikedProducts(data)}
         >
-          Like
-        </button>
-        <img
-          alt="example"
-          src={image}
-          style={{
-            width: "100%",
-            borderRadius: 10,
-            height: 280,
-          }}
-        />
+          {value.state.likedProductIds.includes(id) ? (
+            <HeartFillIcon />
+          ) : (
+            <HeartIcon />
+          )}
+        </div>
+        <Link to={`/product/${id}`}>
+          <img
+            alt="example"
+            src={image}
+            style={{
+              width: "100%",
+              borderRadius: 10,
+              height: 280,
+            }}
+          />
+        </Link>
       </div>
       <div className="flex">
         <div

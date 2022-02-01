@@ -23,9 +23,7 @@ const ProductsWrapper = ({ data }: any) => {
     <div style={{ margin: 5, borderRadius: 20 }}>
       <div className="flex flex-wrap-center">
         {data.map((product: ProductType) => (
-          // <Link to={`/product/${product.id}`}>
           <ProductCard {...product} />
-          // </Link>
         ))}
       </div>
     </div>

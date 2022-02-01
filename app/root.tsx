@@ -3,52 +3,75 @@ import type { MetaFunction } from "remix";
 import Layout from "./containers/Layout";
 import Document from "./containers/Document";
 import globalStylesUrl from "~/styles/global.css";
+import commonStylesUrl from "~/styles/common.css";
+
 import AppContext from "./store/AppContext";
 import { useState } from "react";
 import { ProductType } from "./models";
 
 export let links = () => {
-  return [{ rel: "stylesheet", href: globalStylesUrl }];
+  return [
+    { rel: "stylesheet", href: globalStylesUrl },
+    { rel: "stylesheet", href: commonStylesUrl },
+  ];
 };
 export const meta: MetaFunction = () => {
   return { title: "Remix App" };
 };
 
 export default function App() {
-  const [cart, setCart] = useState([]);
-  const [liked, setLiked] = useState([] as ProductType[]);
-  const [likedId, setLikedId] = useState([] as number[]);
+  const [cartProducts, setCartProducts] = useState([] as ProductType[]);
+  const [likedProducts, setLikedProducts] = useState([] as ProductType[]);
+  const [likedProductIds, setLikedProductIds] = useState([] as number[]);
+  const [cartdProductIds, setCartProductIds] = useState([] as number[]);
 
-  const updateLiked = (data: ProductType) => {
-    let temp = [...liked];
-    let tempId = [...likedId];
-    const existing = liked.some(
+  const updateCart = (data: ProductType) => {
+    let temp = [...cartProducts];
+    let tempId = [...cartdProductIds];
+    const existing = cartProducts.some(
       (product: ProductType) => product.id === data.id
     );
-    console.log(
-      "existing",
-      existing,
-      temp.filter((product: ProductType) => product.id !== data.id)
-    );
+
     if (existing) {
-      setLiked(temp.filter((product: ProductType) => product.id !== data.id));
-      setLikedId(tempId.filter((id: number) => id !== data.id));
+      setCartProducts(
+        temp.filter((product: ProductType) => product.id !== data.id)
+      );
+      setCartProductIds(tempId.filter((id: number) => id !== data.id));
     } else {
-      setLiked([...temp, data]);
-      setLikedId([...tempId, data.id]);
+      setCartProducts([...temp, data]);
+      setCartProductIds([...tempId, data.id]);
     }
   };
-  console.log("LIked", liked, cart);
+
+  const updateLiked = (data: ProductType) => {
+    let temp = [...likedProducts];
+    let tempId = [...likedProductIds];
+    const existing = likedProducts.some(
+      (product: ProductType) => product.id === data.id
+    );
+
+    if (existing) {
+      setLikedProducts(
+        temp.filter((product: ProductType) => product.id !== data.id)
+      );
+      setLikedProductIds(tempId.filter((id: number) => id !== data.id));
+    } else {
+      setLikedProducts([...temp, data]);
+      setLikedProductIds([...tempId, data.id]);
+    }
+  };
   return (
     <Document>
       <AppContext.Provider
         value={{
           state: {
-            liked: liked,
-            cart: cart,
+            likedProducts: likedProducts,
+            cartProducts: cartProducts,
+            likedProductIds: likedProductIds,
+            cartProductIds: cartdProductIds,
           },
-          setCart: setCart,
-          setLiked: (data: ProductType) => updateLiked(data),
+          setCartProducts: (data: ProductType) => updateCart(data),
+          setLikedProducts: (data: ProductType) => updateLiked(data),
         }}
       >
         <Layout>

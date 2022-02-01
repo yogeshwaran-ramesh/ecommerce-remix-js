@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Link } from "remix";
-import { RemixLogo } from "~/assests/icons";
+import { CartIcon, HeartIcon, RemixLogo } from "~/assests/icons";
 import AppContext from "~/store/AppContext";
 const Navbar = () => {
   const value: any = useContext(AppContext);
@@ -15,18 +15,37 @@ const Navbar = () => {
           <ul>
             <li>
               <div style={{ position: "relative" }}>
-                <span style={{ position: "absolute", top: -7, right: -7 }}>
-                  {value.state.cart.length}
-                </span>
-                <Link to="/cart">Cart</Link>
+                <div className="badge">
+                  <span
+                    className="flex flex-center"
+                    style={{ fontSize: 11, color: "white", zIndex: 1 }}
+                  >
+                    {value.state.cartProducts.length}
+                  </span>
+                </div>
+                <Link to="/cart">
+                  <div className="icon">
+                    <CartIcon />
+                  </div>
+                </Link>
               </div>
             </li>
             <li>
               <div style={{ position: "relative" }}>
-                <span style={{ position: "absolute", top: -7, right: -7 }}>
-                  {value.state.liked.length}
-                </span>
-                <Link to="/wishlist">Wishlist</Link>
+                <div className="badge">
+                  <span
+                    className="flex flex-center"
+                    style={{ fontSize: 11, color: "white", zIndex: 1 }}
+                  >
+                    {value.state.likedProducts.length}
+                  </span>
+                </div>
+
+                <Link to="/wishlist">
+                  <div className="icon">
+                    <HeartIcon />
+                  </div>
+                </Link>
               </div>
             </li>
             <li>
